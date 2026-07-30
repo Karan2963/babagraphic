@@ -12,28 +12,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <style>
-    /* Custom Mesh Gradient Background */
-    body {
-      background: radial-gradient(circle at 10% 20%, rgba(219, 234, 254, 0.6) 0%, transparent 40%),
-                  radial-gradient(circle at 90% 10%, rgba(254, 240, 138, 0.5) 0%, transparent 40%),
-                  radial-gradient(circle at 50% 80%, rgba(187, 247, 208, 0.4) 0%, transparent 50%),
-                  #f8fafc;
-      background-attachment: fixed;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    /* Infinite Marquee Animation */
-    @keyframes marquee {
-      0% { transform: translateX(0%); }
-      100% { transform: translateX(-50%); }
-    }
-    .animate-marquee {
-      display: flex;
-      width: 200%;
-      animation: marquee 20s linear infinite;
-    }
-  </style>
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body class="text-slate-800 antialiased selection:bg-blue-500 selection:text-white">
 
@@ -57,6 +37,7 @@
         <a href="#home" class="hover:text-blue-600 transition">Home</a>
         <a href="#services" class="hover:text-blue-600 transition">Services</a>
         <a href="#about" class="hover:text-blue-600 transition">Why Us</a>
+        <a href="#location" class="hover:text-blue-600 transition">Location</a>
         <a href="#contact" class="hover:text-blue-600 transition">Contact</a>
       </nav>
 
@@ -71,10 +52,10 @@
   <section id="home" class="relative pt-16 pb-20 px-6 text-center max-w-5xl mx-auto flex flex-col items-center">
     
     <!-- Location Badge -->
-    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-slate-200 text-xs font-semibold text-slate-600 shadow-sm mb-8">
+    <a href="#location" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-slate-200 text-xs font-semibold text-slate-600 shadow-sm mb-8 hover:border-blue-400 transition">
       <i class="fa-solid fa-location-dot text-blue-600"></i>
-      VARANASI'S PREMIUM DESIGN & PRINT STUDIO
-    </div>
+      BHU LANKA ROAD, VARANASI
+    </a>
 
     <!-- Main Heading -->
     <h1 class="text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-tight">
@@ -84,7 +65,7 @@
 
     <!-- Subtitle -->
     <p class="mt-6 text-base md:text-lg text-slate-600 max-w-2xl font-medium leading-relaxed">
-      Professional graphic design, printing solutions, branding, and academic project assistance — crafted with premium quality in the heart of Varanasi.
+      Professional graphic design, thesis printing, hard binding, and academic project assistance — crafted with premium quality in the heart of Varanasi.
     </p>
 
     <!-- CTAs -->
@@ -95,8 +76,8 @@
       <a href="https://wa.me/916306474331" target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-6 py-3.5 rounded-full flex items-center gap-2 transition shadow-lg">
         <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp Now
       </a>
-      <a href="tel:+916306474331" class="bg-white/80 border border-slate-200 text-slate-700 font-semibold px-6 py-3.5 rounded-full flex items-center gap-2 hover:bg-white transition shadow-sm">
-        <i class="fa-solid fa-phone text-sm"></i> Call Now
+      <a href="https://maps.google.com/?q=Baba+Thesis+printing+and+binding+Saket+Nagar+Colony+Nagwa+Lanka+Varanasi+221005" target="_blank" class="bg-white/80 border border-slate-200 text-slate-700 font-semibold px-6 py-3.5 rounded-full flex items-center gap-2 hover:bg-white transition shadow-sm">
+        <i class="fa-solid fa-compass text-blue-600"></i> Get Directions
       </a>
     </div>
 
@@ -154,7 +135,7 @@
     </div>
   </section>
 
-  <!-- ================= SERVICES / THREE STUDIOS SECTION ================= -->
+  <!-- ================= SERVICES SECTION ================= -->
   <section id="services" class="max-w-7xl mx-auto px-6 py-16">
     <div class="text-center mb-12">
       <span class="text-xs font-extrabold tracking-widest text-blue-600 uppercase bg-blue-50 border border-blue-200 px-3 py-1 rounded-full">
@@ -171,10 +152,10 @@
     <!-- 3 Studio Cards Grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       
-      <!-- Studio 1: Graphic Design -->
+      <!-- Studio 1 -->
       <div class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 flex flex-col">
         <div class="h-44 bg-gradient-to-r from-blue-600 to-indigo-600 p-6 flex flex-col justify-end text-white relative">
-          <span class="text-xs font-semibold uppercase tracking-wider opacity-80">Branch that speaks beautifully</span>
+          <span class="text-xs font-semibold uppercase tracking-wider opacity-80">Brand that speaks beautifully</span>
           <h3 class="text-2xl font-bold mt-1">Graphic Design</h3>
         </div>
         <div class="p-6 flex-1 flex flex-col justify-between">
@@ -194,7 +175,7 @@
         </div>
       </div>
 
-      <!-- Studio 2: Printing Services -->
+      <!-- Studio 2 -->
       <div class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 flex flex-col">
         <div class="h-44 bg-gradient-to-r from-amber-500 to-orange-500 p-6 flex flex-col justify-end text-white relative">
           <span class="text-xs font-semibold uppercase tracking-wider opacity-80">Crisp, vibrant, precise</span>
@@ -217,7 +198,7 @@
         </div>
       </div>
 
-      <!-- Studio 3: Academic Projects -->
+      <!-- Studio 3 -->
       <div class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 flex flex-col">
         <div class="h-44 bg-gradient-to-r from-emerald-600 to-teal-600 p-6 flex flex-col justify-end text-white relative">
           <span class="text-xs font-semibold uppercase tracking-wider opacity-80">From idea to submission</span>
@@ -240,6 +221,38 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ================= LOCATION & DIRECTIONS SECTION ================= -->
+  <section id="location" class="max-w-7xl mx-auto px-6 py-12">
+    <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-xl">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
+        <div>
+          <span class="text-xs font-extrabold tracking-widest text-blue-600 uppercase bg-blue-50 border border-blue-200 px-3 py-1 rounded-full">
+            <i class="fa-solid fa-map-pin mr-1"></i> Find Us
+          </span>
+          <h2 class="text-3xl font-black text-slate-900 mt-2">Visit Our Shop in Varanasi</h2>
+          <p class="text-slate-600 text-sm mt-1">Baba Thesis Printing & Binding, Saket Nagar Colony, BHU - Lanka Rd, Nagwa Lanka, Varanasi, UP 221005</p>
+        </div>
+        <div>
+          <a href="https://maps.google.com/?q=Baba+Thesis+printing+and+binding+Saket+Nagar+Colony+Nagwa+Lanka+Varanasi+221005" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-full flex items-center gap-2 transition text-sm shadow-md">
+            <i class="fa-solid fa-diamond-turn-right"></i> Get Directions
+          </a>
+        </div>
+      </div>
+
+      <!-- Embedded Google Maps Frame -->
+      <div class="w-full h-80 md:h-96 rounded-2xl overflow-hidden border border-slate-200 shadow-inner relative">
+        <iframe 
+          title="Baba Thesis Printing Location Map"
+          class="w-full h-full border-0"
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3607.728286877712!2d82.9972!3d25.2801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398e31e500000001%3A0x0!2sBaba%20Thesis%20Printing%20And%20Binding!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin">
+        </iframe>
+      </div>
     </div>
   </section>
 
@@ -286,16 +299,16 @@
       <!-- Right Contact Info Cards -->
       <div class="space-y-4">
         
-        <!-- Address Card -->
-        <div class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-4 flex items-center gap-4">
-          <div class="w-12 h-12 bg-blue-500/20 text-blue-400 rounded-xl flex items-center justify-center text-lg shrink-0">
+        <!-- Address Card with Direct Link -->
+        <a href="https://maps.google.com/?q=Baba+Thesis+printing+and+binding+Saket+Nagar+Colony+Nagwa+Lanka+Varanasi+221005" target="_blank" class="bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 rounded-2xl p-4 flex items-center gap-4 transition group block">
+          <div class="w-12 h-12 bg-blue-500/20 group-hover:bg-blue-500 group-hover:text-white text-blue-400 rounded-xl flex items-center justify-center text-lg shrink-0 transition">
             <i class="fa-solid fa-location-dot"></i>
           </div>
           <div>
-            <span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400 block">Visit Us</span>
-            <p class="text-sm font-semibold text-slate-100">BHU Lanka Road, Saket Nagar Colony, Nagwa, Varanasi, UP - 221005</p>
+            <span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400 block">Visit Us (Click for Map)</span>
+            <p class="text-sm font-semibold text-slate-100">Baba thesis, printing & Binding, BHU - Lanka Rd, Saket Nagar Colony, Nagwa Lanka, Varanasi, UP 221005</p>
           </div>
-        </div>
+        </a>
 
         <!-- Call Card -->
         <div class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-4 flex items-center gap-4">
@@ -348,7 +361,7 @@
           <span class="text-lg font-bold text-white">BABA Graphics</span>
         </div>
         <p class="text-xs leading-relaxed text-slate-400">
-          Your complete printing, graphic design & academic project solution in Varanasi. Premium quality, fast delivery, unbeatable prices.
+          Your complete printing, thesis binding, graphic design & academic project solution in Varanasi. Premium quality, fast delivery, unbeatable prices.
         </p>
       </div>
 
@@ -359,6 +372,7 @@
           <li><a href="#home" class="hover:text-white transition">Home</a></li>
           <li><a href="#services" class="hover:text-white transition">Services</a></li>
           <li><a href="#about" class="hover:text-white transition">Why Choose Us</a></li>
+          <li><a href="#location" class="hover:text-white transition">Location & Directions</a></li>
           <li><a href="#contact" class="hover:text-white transition">Contact</a></li>
         </ul>
       </div>
@@ -369,7 +383,7 @@
         <ul class="space-y-2 text-xs">
           <li class="flex items-start gap-2">
             <i class="fa-solid fa-location-dot mt-0.5 text-blue-500"></i>
-            <span>BHU Lanka Road, Saket Nagar Colony, Nagwa, Varanasi, UP - 221005</span>
+            <span>Baba thesis, printing & Binding, Saket Nagar Colony, BHU - Lanka Rd, Nagwa Lanka, Varanasi, UP - 221005</span>
           </li>
           <li class="flex items-center gap-2">
             <i class="fa-solid fa-phone text-blue-500"></i>
@@ -392,6 +406,9 @@
 
   <!-- ================= FLOATING ACTION BUTTONS ================= -->
   <div class="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
+    <a href="https://maps.google.com/?q=Baba+Thesis+printing+and+binding+Saket+Nagar+Colony+Nagwa+Lanka+Varanasi+221005" target="_blank" aria-label="Location Map" class="w-12 h-12 bg-amber-500 hover:bg-amber-600 text-white rounded-full flex items-center justify-center shadow-lg transition">
+      <i class="fa-solid fa-location-dot text-lg"></i>
+    </a>
     <a href="tel:+916306474331" aria-label="Call Us" class="w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center shadow-lg transition">
       <i class="fa-solid fa-phone text-lg"></i>
     </a>
@@ -400,8 +417,7 @@
     </a>
   </div>
 
-  <script>
-    lucide.createIcons();
-  </script>
+  <!-- External Script -->
+  <script src="script.js"></script>
 </body>
 </html>
