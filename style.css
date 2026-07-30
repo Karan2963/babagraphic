@@ -1,0 +1,27 @@
+/* Custom Mesh Gradient Background */
+body {
+  background: radial-gradient(circle at 10% 20%, rgba(219, 234, 254, 0.6) 0%, transparent 40%),
+              radial-gradient(circle at 90% 10%, rgba(254, 240, 138, 0.5) 0%, transparent 40%),
+              radial-gradient(circle at 50% 80%, rgba(187, 247, 208, 0.4) 0%, transparent 50%),
+              #f8fafc;
+  background-attachment: fixed;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* Infinite Marquee Animation */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: 200%;
+  animation: marquee 20s linear infinite;
+}
+
+/* Smooth Scrolling Offset for Sticky Header */
+html {
+  scroll-padding-top: 80px;
+}
