@@ -1,0 +1,14 @@
+node_modules/
+.next/
+.env*
+!.env.example
+
+# Local development artifacts
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Prisma local database files
+*.db
+*.db-journal

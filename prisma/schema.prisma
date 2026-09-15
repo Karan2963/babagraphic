@@ -1,0 +1,319 @@
+// Prisma schema for Baba Book Binding ERP (Neon DB)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  STAFF
+}
+
+enum InvoiceStatus {
+  PAID
+  UNPAID
+  PARTIAL
+  CANCELLED
+}
+
+enum PaymentMethod {
+  CASH
+  UPI
+  CARD
+  CREDIT
+}
+
+enum ItemType {
+  PRODUCT
+  SERVICE
+}
+
+enum StockTransactionType {
+  IN
+  OUT
+  ADJUSTMENT
+}
+
+enum AssetStatus {
+  WORKING
+  MAINTENANCE
+  DAMAGED
+}
+
+enum OrderStatus {
+  PENDING
+  RECEIVED
+  PRINTING
+  BINDING
+  READY
+  DELIVERED
+  COMPLETED
+}
+
+model AdminProfile {
+  id        String   @id @default(uuid())
+  clerkId   String   @unique
+  email     String
+  name      String?
+  role      Role     @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Customer {
+  id                 String     @id @default(uuid())
+  name               String
+  mobile             String     @unique
+  email              String?
+  address            String?
+  gstin              String?
+  state              String?    @default("Uttar Pradesh")
+  totalOrders        Int        @default(0)
+  totalPurchase      Float      @default(0)
+  outstandingBalance Float      @default(0)
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  invoices     Invoice[]
+  payments     Payment[]
+  onlineOrders OnlineOrder[]
+}
+
+model Supplier {
+  id                 String     @id @default(uuid())
+  name               String
+  mobile             String?
+  email              String?
+  address            String?
+  gstin              String?
+  totalPurchases     Float      @default(0)
+  outstandingBalance Float      @default(0)
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  purchases Purchase[]
+}
+
+model InventoryItem {
+  id            String   @id @default(uuid())
+  name          String   @unique
+  category      String   // Paper, Binding, Toners, Lamination, Accessories
+  unit          String   @default("Sheets") // Sheets, Reams, Coils, Units, Bottles
+  minStockAlert Float    @default(10)
+  currentStock  Float    @default(0)
+  costPrice     Float    @default(0)
+  sellingPrice  Float    @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  transactions  InventoryTransaction[]
+  purchaseItems PurchaseItem[]
+  products      ProductService[]
+}
+
+model InventoryTransaction {
+  id              String               @id @default(uuid())
+  inventoryItemId String
+  type            StockTransactionType
+  quantity        Float
+  referenceType   String?              // BILL, PURCHASE, MANUAL
+  referenceId     String?
+  notes           String?
+  date            DateTime             @default(now())
+  createdAt       DateTime             @default(now())
+
+  inventoryItem InventoryItem @relation(fields: [inventoryItemId], references: [id], onDelete: Cascade)
+}
+
+model ProductService {
+  id              String    @id @default(uuid())
+  name            String    @unique
+  type            ItemType  @default(SERVICE)
+  hsnSac          String?   // e.g. 9989 (Printing), 9988 (Binding)
+  unit            String    @default("Pages")
+  price           Float     @default(0)
+  defaultTaxRate  Float     @default(18) // 18% GST (9% CGST + 9% SGST)
+  inventoryItemId String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  inventoryItem InventoryItem? @relation(fields: [inventoryItemId], references: [id])
+  invoiceItems  InvoiceItem[]
+}
+
+model Invoice {
+  id            String        @id @default(uuid())
+  invoiceNo     String        @unique // e.g. BB/2026-27/0001
+  customerId    String
+  date          DateTime      @default(now())
+  dueDate       DateTime?
+  status        InvoiceStatus @default(PAID)
+  subtotal      Float         @default(0)
+  cgst          Float         @default(0)
+  sgst          Float         @default(0)
+  igst          Float         @default(0)
+  totalAmount   Float         @default(0)
+  paidAmount    Float         @default(0)
+  dueAmount     Float         @default(0)
+  paymentMethod PaymentMethod @default(CASH)
+  notes         String?
+  createdBy     String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  customer     Customer      @relation(fields: [customerId], references: [id])
+  items        InvoiceItem[]
+  payments     Payment[]
+  onlineOrders OnlineOrder[]
+}
+
+model InvoiceItem {
+  id            String   @id @default(uuid())
+  invoiceId     String
+  productId     String?
+  name          String
+  hsnSac        String?
+  qty           Float
+  rate          Float
+  taxableAmount Float
+  cgstRate      Float    @default(9)
+  cgstAmount    Float    @default(0)
+  sgstRate      Float    @default(9)
+  sgstAmount    Float    @default(0)
+  igstRate      Float    @default(0)
+  igstAmount    Float    @default(0)
+  totalAmount   Float
+
+  invoice Invoice         @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  product ProductService? @relation(fields: [productId], references: [id])
+}
+
+model Payment {
+  id            String        @id @default(uuid())
+  invoiceId     String?
+  customerId    String
+  amount        Float
+  paymentDate   DateTime      @default(now())
+  paymentMethod PaymentMethod @default(CASH)
+  referenceNo   String?       // UPI Transaction ID, Cheque No, etc.
+  notes         String?
+  createdAt     DateTime      @default(now())
+
+  invoice  Invoice?  @relation(fields: [invoiceId], references: [id])
+  customer Customer @relation(fields: [customerId], references: [id])
+}
+
+model Purchase {
+  id                String   @id @default(uuid())
+  supplierId        String
+  supplierInvoiceNo String?
+  date              DateTime @default(now())
+  totalAmount       Float    @default(0)
+  paidAmount        Float    @default(0)
+  dueAmount         Float    @default(0)
+  status            String   @default("PAID") // PAID, UNPAID, PARTIAL
+  createdAt         DateTime @default(now())
+
+  supplier Supplier       @relation(fields: [supplierId], references: [id])
+  items    PurchaseItem[]
+}
+
+model PurchaseItem {
+  id              String @id @default(uuid())
+  purchaseId      String
+  inventoryItemId String
+  qty             Float
+  unitPrice       Float
+  taxAmount       Float  @default(0)
+  totalAmount     Float
+
+  purchase      Purchase      @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  inventoryItem InventoryItem @relation(fields: [inventoryItemId], references: [id])
+}
+
+model Asset {
+  id                 String      @id @default(uuid())
+  assetCode          String      @unique // AST-001
+  name               String
+  category           String      // Printing Machine, Computer, Binding Machine, Copier, UPS, AC, etc.
+  purchaseDate       DateTime
+  purchasePrice      Float
+  supplierName       String?
+  serialNumber       String?
+  location           String?     @default("Shop")
+  status             AssetStatus @default(WORKING)
+  warrantyExpiryDate DateTime?
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+
+  maintenanceLogs AssetMaintenance[]
+}
+
+model AssetMaintenance {
+  id          String   @id @default(uuid())
+  assetId     String
+  date        DateTime @default(now())
+  description String
+  cost        Float    @default(0)
+  performedBy String?
+  createdAt   DateTime @default(now())
+
+  asset Asset @relation(fields: [assetId], references: [id], onDelete: Cascade)
+}
+
+model Expense {
+  id            String        @id @default(uuid())
+  category      String        // Electricity, Rent, Paper, Ink, Transport, Maintenance, Other
+  title         String
+  amount        Float
+  date          DateTime      @default(now())
+  paymentMethod PaymentMethod @default(CASH)
+  notes         String?
+  createdAt     DateTime      @default(now())
+}
+
+model OnlineOrder {
+  id             String      @id @default(uuid())
+  orderNo        String      @unique // ORD-1001
+  customerId     String?
+  customerName   String
+  customerMobile String
+  customerEmail  String?
+  serviceType    String
+  instructions   String?
+  fileUrl        String?
+  status         OrderStatus @default(PENDING)
+  invoiceId      String?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  customer Customer? @relation(fields: [customerId], references: [id])
+  invoice  Invoice?  @relation(fields: [invoiceId], references: [id])
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  action    String   // INVOICE_CREATED, INVOICE_EDITED, INVOICE_CANCELLED, ASSET_ADDED, etc.
+  entity    String   // Invoice, Customer, Stock, Asset
+  entityId  String?
+  details   String
+  timestamp DateTime @default(now())
+}
+
+model BusinessSetting {
+  id            String   @id @default("default")
+  businessName  String   @default("BABA BOOK BINDING")
+  gstin         String   @default("09BTDPY1262P1ZX")
+  address       String   @default("B30/25 Madho Market, Lanka, Varanasi - 221005")
+  phone         String   @default("+91 63064 74331")
+  email         String   @default("contact@babagraphic.store")
+  invoicePrefix String   @default("BB")
+  state         String   @default("Uttar Pradesh")
+  updatedAt     DateTime @updatedAt
+}
