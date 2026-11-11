@@ -7,6 +7,7 @@ export async function GET() {
       include: {
         customer: true,
         invoice: true,
+        product: true,
       },
       orderBy: { createdAt: 'desc' },
     });
@@ -21,7 +22,23 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { customerName, customerMobile, customerEmail, serviceType, instructions, fileUrl } = body;
+    const {
+      customerName,
+      customerMobile,
+      customerEmail,
+      serviceType,
+      instructions,
+      fileUrl,
+      orderType,
+      productId,
+      quantity,
+      paperType,
+      size,
+      deliverySpeed,
+      designBrief,
+      referenceUrl,
+      totalAmount,
+    } = body;
 
     if (!customerName || !customerMobile || !serviceType) {
       return NextResponse.json({ error: 'Name, mobile and service type required' }, { status: 400 });
@@ -54,6 +71,18 @@ export async function POST(request: Request) {
         instructions: instructions || null,
         fileUrl: fileUrl || null,
         status: 'PENDING',
+        orderType: orderType || 'PRINT_READY',
+        productId: productId || null,
+        quantity: quantity ? parseInt(quantity) : 1,
+        paperType: paperType || null,
+        size: size || null,
+        deliverySpeed: deliverySpeed || 'STANDARD',
+        designBrief: designBrief || null,
+        referenceUrl: referenceUrl || null,
+        totalAmount: totalAmount ? parseFloat(totalAmount) : 0,
+      },
+      include: {
+        product: true,
       },
     });
 

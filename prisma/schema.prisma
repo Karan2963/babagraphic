@@ -292,8 +292,47 @@ model OnlineOrder {
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
 
+  // Enhanced fields for Print & Design orders
+  orderType      String?     @default("PRINT_READY") // PRINT_READY | DESIGN_AND_PRINT
+  productId      String?
+  product        PrintProduct? @relation(fields: [productId], references: [id])
+  quantity       Int?        @default(1)
+  paperType      String?
+  size           String?
+  deliverySpeed  String?     @default("STANDARD") // STANDARD | EXPRESS
+  designBrief    String?     // Business details, colors, text for custom design
+  referenceUrl   String?     // Logo or reference file
+  totalAmount    Float?      @default(0)
+
   customer Customer? @relation(fields: [customerId], references: [id])
   invoice  Invoice?  @relation(fields: [invoiceId], references: [id])
+}
+
+model PrintProduct {
+  id             String        @id @default(uuid())
+  title          String
+  slug           String        @unique
+  category       String        // Stationery, Marketing, Cards, Binding, Banners, Apparel
+  tagline        String?
+  description    String?
+  features       String?       // JSON string or newline-separated list
+  imageUrl       String
+  galleryImages  String?       // JSON array of strings
+  basePrice      Float         @default(0)
+  unit           String        @default("units")
+  minQuantity    Int           @default(10)
+  quantityTiers  String?       // JSON array of { qty, price, perUnit }
+  paperOptions   String?       // JSON array of paper options
+  sizeOptions    String?       // JSON array or string
+  designFee      Float         @default(0)
+  rating         Float         @default(4.8)
+  reviewCount    Int           @default(120)
+  isActive       Boolean       @default(true)
+  isFeatured     Boolean       @default(false)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  orders         OnlineOrder[]
 }
 
 model AuditLog {

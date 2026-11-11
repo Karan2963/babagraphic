@@ -18,6 +18,8 @@ import {
   Receipt,
   Globe,
   Store,
+  Palette,
+  Upload,
   PlusCircle,
   Menu,
   X,
@@ -44,6 +46,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: 'Payments & Dues', href: '/admin/payments', icon: CreditCard },
     { name: 'Reports & Profit', href: '/admin/reports', icon: BarChart3 },
     { name: 'GST Returns', href: '/admin/gst', icon: Receipt },
+    { name: 'Design Catalog', href: '/admin/designs', icon: Palette },
     { name: 'Online Orders', href: '/admin/online-orders', icon: Globe },
   ];
 
@@ -75,13 +78,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </button>
         </div>
 
-        {/* Quick Action + New Bill Button */}
-        <div className="mb-4">
+        {/* Quick Action Buttons */}
+        <div className="space-y-2 mb-4">
           <Link
             href="/admin/billing/new"
             className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition shadow-md"
           >
             <PlusCircle className="w-4 h-4" /> Create New Bill
+          </Link>
+          <Link
+            href="/admin/designs?upload=true"
+            className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition shadow-md"
+          >
+            <Upload className="w-4 h-4" /> Upload Design / Work
           </Link>
         </div>
 
@@ -147,6 +156,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
 
         <div className="flex items-center gap-2">
+          <Link
+            href="/admin/designs?upload=true"
+            className="bg-purple-600 hover:bg-purple-500 text-white text-[11px] font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 shadow-sm"
+          >
+            <Upload className="w-3.5 h-3.5" /> + Upload
+          </Link>
           <Link
             href="/admin/billing/new"
             className="bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow-sm"

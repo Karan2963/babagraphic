@@ -84,9 +84,14 @@ export default function PublicOrderPage() {
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-6 font-sans">
       <div className="max-w-2xl mx-auto">
-        <Link href="/" className="inline-flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-blue-600 mb-6">
-          <ArrowLeft className="w-4 h-4" /> Back to Home
-        </Link>
+        <div className="flex items-center justify-between mb-6">
+          <Link href="/" className="inline-flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-blue-600">
+            <ArrowLeft className="w-4 h-4" /> Back to Home
+          </Link>
+          <Link href="/printing" className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 bg-blue-50 px-3 py-1.5 rounded-full border border-blue-200">
+            🎨 Letterheads & Custom Design Store &rarr;
+          </Link>
+        </div>
 
         <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-xl">
           <div className="border-b border-slate-200 pb-4 mb-6">

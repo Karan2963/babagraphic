@@ -32,6 +32,12 @@ export default function PublicHomePage() {
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
             <a href="#home" className="hover:text-blue-600 transition">Home</a>
+            <Link href="/printing" className="text-blue-600 hover:text-blue-700 font-bold transition flex items-center gap-1.5">
+              <span className="bg-blue-100 text-blue-700 text-[9px] font-black px-1.5 py-0.2 rounded-full uppercase tracking-wider">
+                Store
+              </span>
+              Print & Design
+            </Link>
             <a href="#services" className="hover:text-blue-600 transition">Services</a>
             <a href="#about" className="hover:text-blue-600 transition">Why Us</a>
             <a href="#location" className="hover:text-blue-600 transition">Location</a>
@@ -41,10 +47,10 @@ export default function PublicHomePage() {
           {/* Action Buttons: Order Online & Admin Login */}
           <div className="flex items-center gap-3">
             <Link
-              href="/order"
-              className="hidden sm:inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full font-bold text-xs transition shadow-sm"
+              href="/printing"
+              className="hidden sm:inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full font-bold text-xs transition shadow-sm"
             >
-              <i className="fa-solid fa-cloud-arrow-up text-sm"></i> Order Online
+              <i className="fa-solid fa-palette text-xs"></i> Print & Design
             </Link>
 
             {isSignedIn ? (
@@ -95,17 +101,17 @@ export default function PublicHomePage() {
         {/* CTAs */}
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <Link
-            href="/order"
+            href="/printing"
             className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3.5 rounded-full flex items-center gap-2 transition shadow-lg text-sm"
           >
-            <i className="fa-solid fa-file-pdf"></i> Upload PDF & Order Online
+            <i className="fa-solid fa-palette"></i> Print & Design Studio (Order Online)
           </Link>
-          <a
-            href="#services"
+          <Link
+            href="/order"
             className="bg-slate-900 text-white font-semibold px-6 py-3.5 rounded-full flex items-center gap-2 hover:bg-slate-800 transition shadow-lg text-sm"
           >
-            Get Started <i className="fa-solid fa-arrow-right text-sm"></i>
-          </a>
+            <i className="fa-solid fa-file-pdf"></i> Upload Thesis PDF
+          </Link>
           <a
             href="https://wa.me/916306474331"
             target="_blank"

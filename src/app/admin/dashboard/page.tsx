@@ -14,6 +14,8 @@ import {
   ArrowUpRight,
   Clock,
   CheckCircle,
+  Upload,
+  Palette,
 } from 'lucide-react';
 
 export default function AdminDashboardPage() {
@@ -59,7 +61,13 @@ export default function AdminDashboardPage() {
             Business & POS Overview | GSTIN: 09BTDPY1262P1ZX | Lanka, Varanasi
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5">
+          <Link
+            href="/admin/designs?upload=true"
+            className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 transition shadow-md"
+          >
+            <Upload className="w-4 h-4" /> + Upload Design / Work
+          </Link>
           <Link
             href="/admin/billing/new"
             className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 transition shadow-md"
